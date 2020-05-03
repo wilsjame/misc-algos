@@ -36,19 +36,11 @@ string convert_to_base(int n, int B) {
 }
 
 bool is_palindrome(string s) {
-    stack<char> st;
-    int index;
-    for (index = 0; index < s.size() / 2; index++) {
-        st.push(s[index]);
-    }
-    if (s.size() % 2 != 0) {
-        index++; // ignore middle char in odd length words
-    }
-    while (!st.empty()) {
-        if (st.top() != s[index++]) {
+    // okay to ignore middle char in odd length words
+    for (int i=0, j=s.size()-1; i<s.size()/2; i++, j--) {
+        if (s[i] != s[j]) {
             return false;
         }
-        st.pop();
     }
     return true;
 }
