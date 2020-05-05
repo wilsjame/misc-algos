@@ -4,8 +4,8 @@ PROG: palsquare
 LANG: C++                 
 */
 
+#include <algorithm>
 #include <iostream>
-#include <stack>
 #include <string>
 
 using namespace std;
@@ -21,21 +21,18 @@ char convert(int n) {
     return char(n + 55);
 }
 
-// converts a number base 10 to a number base B
-string convert_to_base(int n, int B) {
-    string result;
-    stack<char> st;
-    while(n > 0) {
-        st.push(convert(n % B));
-        n = n / B;
+// converts a number base 10 to a number base b
+void numb_conv(string& r, int n, int b) {
+    if (n == 0) {
+        reverse(r.begin(), r.end());
+        return;
     }
-    while (!st.empty()) {
-        result += st.top(); st.pop();
-    }
-    return result;
+    // TODO
+    r += convert(n % b);
+    numb_conv(r, n / b, b);
 }
 
-bool is_palindrome(string s) {
+bool is_pal(string s) {
     // okay to ignore middle char in odd length words
     for (int i=0, j=s.size()-1; i<s.size()/2; i++, j--) {
         if (s[i] != s[j]) {
@@ -47,15 +44,23 @@ bool is_palindrome(string s) {
 
 int main() {
     cerr << "%%%%%_program start_%%%%%\n";
+
+    string s,t;
+    int B;
     freopen("palsquare.in","r",stdin);
     freopen("palsquare.out","w",stdout);
-    int B;
+
     cin >> B;
+
     for (int n = 1; n <= 300; n++) {
-        string sq = convert_to_base(n * n, B);
-        if (is_palindrome(sq)) {
-            cout << convert_to_base(n, B) << " " << sq << endl;
+        s = "";
+        numb_conv(s, n * n, B);
+        if (is_pal(s)) {
+            t = "";
+            numb_conv(t, n, B);
+            cout << t << " " << s << endl;
         }
     }
+
     return 0;
 }
