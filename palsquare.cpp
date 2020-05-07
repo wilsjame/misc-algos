@@ -11,7 +11,6 @@ using namespace std;
 
 // put the base b representation of n into s
 void numb_conv(string& s, int n, int b) {
-    int len;
     if (n == 0) {
         s = "";
         return;
