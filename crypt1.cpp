@@ -71,7 +71,6 @@ int main() {
         valid_nums.insert(n);
     }
     
-    int counter = 0;
     for (auto const& a : digits) {
         for (auto const& b : digits) {
             for (auto const& c : digits) {
