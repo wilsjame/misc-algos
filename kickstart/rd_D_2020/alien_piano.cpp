@@ -37,32 +37,3 @@ int main() {
     }
     return 0;
 }
-
-/*
-        cerr << "\ncase# " << c << "k: " << k << endl;
-        int prev, curr, res = 0;
-        cin >> prev;
-        for (int hi = 0, lo = 0, i = 0; i + 1 < k; i++) {
-            cin >> curr;
-            //cerr << "prev: " << prev << " curr: " << curr << endl;
-            if (curr == prev) continue;
-            if (curr > prev) {
-                hi++; lo = 0;
-            } else {
-                lo++, hi = 0;
-            }
-            //cerr << "hi " << hi << " lo " << lo << endl;
-            if (hi > 4) {
-                res++;
-                hi = 0;
-                lo = 1;
-            }
-            else if (lo > 4) {
-                res++;
-                lo = 0;
-                hi = 1;
-            }
-            prev = curr;
-        }
-        cout << "Case #" << c << ": " << res << endl;  
-        */
