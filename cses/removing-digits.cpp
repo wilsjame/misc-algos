@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+const int INF = 1e9 + 5;
 int main() {
     int n;
     cin >> n;
@@ -20,6 +21,7 @@ int main() {
         steps[i] = 1;
 
     for (int x = 10; x <= n; x++) {
+        steps[x] = INF;
         for (int digit : /* in n */) {
             if (x - digit >= 0) {
                 steps[x] = min(steps[x], step[x - digit] + 1);
