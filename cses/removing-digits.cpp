@@ -22,7 +22,7 @@ int main() {
 
     for (int x = 10; x <= n; x++) {
         steps[x] = INF;
-        for (int digit : /* in n */) {
+        for (int digit : /* in x */) {
             if (x - digit >= 0) {
                 steps[x] = min(steps[x], step[x - digit] + 1);
             }
