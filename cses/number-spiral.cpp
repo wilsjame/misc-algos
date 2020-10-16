@@ -12,17 +12,7 @@ int main() {
 	while (t--) {
 		ll y, x;
 		cin >> y >> x;
-		// either the top most cell or the left most cell is a square.
-		// if y and x are equal
-		//  if odd top most cell is square
-		//  else if even left most cell is square
-		//
-		//  if y is greater than x were on the left side of the main diagonal 
-		//  else if x is greater than y were on the right side of the main diagonal
-		//
-		//   if y is even we have a square in the left most
-		//   if y is odd we do not have a square in the left most
-		//   simlilar logic if x is even or odd
+
 		ll mx, sq;
 		mx = max(y, x);
 		sq = mx * mx;
