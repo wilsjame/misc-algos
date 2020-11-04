@@ -9,14 +9,10 @@ const int INF = 55;
 int main() {
     int N;
     cin >> N;
-    string smallest(INF, '0');
     vector<int> cnt(26, INF);
     vector<string> A(N);
-    for (auto &k : A) {
+    for (auto &k : A) 
         cin >> k;
-        if (k.size() < smallest.size()) 
-            smallest = k;
-    }
 
     // get minimum character counts greater than zero
     for (string s : A) 
