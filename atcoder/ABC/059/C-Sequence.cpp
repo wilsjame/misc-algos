@@ -9,65 +9,41 @@ using namespace std;
 int main() {
     int N;
     cin >> N;
-    vector<ll> V(N);
-    for (auto &k : V) 
+    vector<ll> A(N);
+    for (auto &k : A) 
         cin >> k;
 
-    vector<ll> prefix_sum(N), A(N);
-    ll cnt_1 = 0, cnt_2 = 0;
+    ll sum_1 = 0, sum_2 = 0, cnt_1 = 0, cnt_2 = 0;
 
-    //Ve+ Ve- Ve+ ...
-    A = V;
-    prefix_sum[0] = A[0];
-    if (prefix_sum[0] <= 0) {
-        A[0] += (abs(prefix_sum[0]) + 1);
-        cnt_1 += (abs(prefix_sum[0]) + 1);
-        prefix_sum[0] = A[0];
-    }
-        //printf("prefix_sum[%d] = %lld\n", 0, prefix_sum[0]);
-    for (int i = 1; i < N; i++) {
-        prefix_sum[i] = prefix_sum[i - 1] + A[i];
-        if (i % 2 && prefix_sum[i] >= 0) {
-            A[i] -= (prefix_sum[i] + 1);
-            cnt_1 += (prefix_sum[i] + 1);
-            prefix_sum[i] = prefix_sum[i - 1] + A[i];
+    // two cases, sign change to -1 or 1 
+    //Ae+ Ae- Ae+ ...
+    //Ae- Ae+ Ae- ...
+    for (int i = 0; i < N; i++) {
+        sum_1 += A[i];
+        sum_2 += A[i];
+
+        if (i % 2 == 0) {
+            if (sum_1 >= 0) {
+                cnt_1 += sum_1 + 1;
+                sum_1 = -1;
+            }
+            if (sum_2 <= 0) {
+                cnt_2 += abs(sum_2) + 1;
+                sum_2 = 1;
+            }
         }
-        else if (i % 2 == 0 && prefix_sum[i] <= 0) {
-            A[i] += (abs(prefix_sum[i]) + 1);
-            cnt_1 += (abs(prefix_sum[i]) + 1);
-            prefix_sum[i] = prefix_sum[i - 1] + A[i];
+        else {
+            if (sum_1 <= 0) {
+                cnt_1 += abs(sum_1) + 1;
+                sum_1 = 1;
+            }
+            if (sum_2 >= 0) {
+                cnt_2 += sum_2 + 1;
+                sum_2 = -1;
+            }
         }
-        //printf("prefix_sum[%d] = %lld\n", i, prefix_sum[i]);
+        //cout << sum_1 << " " << sum_2 << " " << cnt_1 << " " << cnt_2 << endl;
     }
-
-    cerr << "\n---\n";
-
-    //Ve- Ve+ Ve- ...
-    A = V;
-    prefix_sum[0] = A[0];
-    if (prefix_sum[0] >= 0) {
-        A[0] -= (prefix_sum[0] + 1);
-        cnt_2 += (prefix_sum[0] + 1);
-        prefix_sum[0] = A[0];
-    }
-        //printf("prefix_sum[%d] = %lld\n", 0, prefix_sum[0]);
-    for (int i = 1; i < N; i++) {
-        prefix_sum[i] = prefix_sum[i - 1] + A[i];
-        if (i % 2 && prefix_sum[i] <= 0) {
-            A[i] += (abs(prefix_sum[i]) + 1);
-            cnt_2 += (abs(prefix_sum[i]) + 1);
-            prefix_sum[i] = prefix_sum[i - 1] + A[i];
-        }
-        else if (i % 2 == 0 && prefix_sum[i] >= 0) {
-            A[i] -= (prefix_sum[i] + 1);
-            cnt_2 += (prefix_sum[i] + 1);
-            prefix_sum[i] = prefix_sum[i - 1] + A[i];
-        }
-        //printf("prefix_sum[%d] = %lld\n", i, prefix_sum[i]);
-    }
-
-
-    //printf("cnt_1: %lld cnt_2: %lld\n", cnt_1, cnt_2);
     cout << min(cnt_1, cnt_2) << endl;
 
     return 0; 
