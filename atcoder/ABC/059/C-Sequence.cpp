@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
-#include <cstdio>
 using namespace std;
 
 #define ll long long
@@ -28,13 +26,13 @@ int main() {
                 sum_1 = -1;
             }
             if (sum_2 <= 0) {
-                cnt_2 += abs(sum_2) + 1;
+                cnt_2 += 1 - sum_2;
                 sum_2 = 1;
             }
         }
         else {
             if (sum_1 <= 0) {
-                cnt_1 += abs(sum_1) + 1;
+                cnt_1 += 1 - sum_1;
                 sum_1 = 1;
             }
             if (sum_2 >= 0) {
