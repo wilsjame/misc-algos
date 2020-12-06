@@ -8,11 +8,9 @@ int main() {
     vector<int> A(N);
     for (auto &v : A) cin >> v;
 
-    int chocolates = N;
-    for (int d : A) {
-        for (int i = 1; 1 + (d * i) <= D; i++) {
-            chocolates++;
-        }
+    int chocolates = 0;
+    for (int i = 0; i < N; i++) {
+        chocolates += 1 + ((D - 1) / A[i]);
     }
     cout << chocolates + X << endl;
 
