@@ -21,9 +21,9 @@ while i and j:
         i -= 1
         j -= 1
     else:
-        if dp[i][j] != dp[i-1][j]:
-            j -= 1
-        else:
+        if dp[i][j] == dp[i-1][j]:
             i -= 1
+        else:
+            j -= 1
 
 print(ans)
