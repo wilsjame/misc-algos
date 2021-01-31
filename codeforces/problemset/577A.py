@@ -1,8 +1,4 @@
 n,x = map(int, input().split())
 
-ans = 0
-for i in range(1,n+1):
-    mx = i * n
-    if x % i == 0 and x <= mx:
-        ans += 1
+ans = sum((x % i == 0 and x <= i * n) for i in range(1,n+1))
 print(ans)
