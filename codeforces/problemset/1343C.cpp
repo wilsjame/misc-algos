@@ -1,51 +1,31 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #define ll long long
 using namespace std;
+int sgn(int x) { return x < 0 ? -1 : 1; }
 int main() {
-    ll t;
+    int t;
     cin >> t;
-    while(t--) {
-        ll n;
+    while (t--) {
+        int n;
         cin >> n;
-        vector<ll> a(n);
-        for (auto &x : a) {
-            cin >> x;
+        ll a[n];
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
         }
-        
-        ll l, r;
-        l = 0, r = 0;
-        ll mx, mn;
-        mx = -1, mn = -1e10+5;
         ll ans = 0;
-
-        while (r < n) {
-            if (a[l] < 0 && a[r] >= 0) {
-                ans += mn; 
-                mn = -1e10+5;
+        ll l = a[0];
+        for (int i = 1; i < n; i++) {
+            ll r = a[i];
+            if (sgn(l) == sgn(r)) {
+                l = max(l, r);
+            }
+            else {
+                ans += l;
                 l = r;
-            }
-            else if (a[l] >= 0 && a[r] < 0) {
-                ans += mx;
-                mx = -1;
-                l = r;
-            }
-            if (a[l] < 0) {
-                mn = max(mn, a[r++]);
-                if (r == n) {
-                    ans += mn;
-                }
-            }
-            else if (a[l] >= 0) {
-                mx = max(mx, a[r++]);
-                if (r == n) {
-                    ans += mx;
-                }
             }
         }
-        cout << ans << endl;
+        cout << ans + l << endl;
     }
-
     return 0;
 }
