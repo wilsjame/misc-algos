@@ -12,17 +12,19 @@ int main() {
         cin >> a >> b;
         v.push_back(make_pair(a, b));
     }
+
     sort(v.begin(), v.end());
-    int day = min(v[0].first, v[0].second);
+    int day = -1;
+
     for (int i = 0; i < n; i++) {
         int a, b;
         a = v[i].first;
         b = v[i].second;
-        if (min(a, b) < day) {
-            day = a;
+        if (day <= b) {
+            day = b;
         }
         else {
-            day = min(a, b);
+            day = a;
         }
     }
     cout << day << endl;
