@@ -1,21 +1,20 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
-#include <algorithm>
+#include <cmath>
+#include <iomanip>
 using namespace std;
 
-const int mxN = 10;
-int n, total, A;
-vector<int> permutation;
-bool chosen[mxN + 1];
+int total, A;
+const double EULER_MASCHERONI_CONST = 0.577215664901532;
 
-void search() {
-    if (permutation.size() == n) {
+void search(vector<int> a, int n, bool chosen[]) {
+    if ((int)a.size() == n) {
+        // process permutation
         int cnt = 1;
-        int cur = permutation[0];
-        for (int i = 0; i < n - 1; i++) {
-            if (permutation[i + 1] > cur) {
-                cur = permutation[i + 1];
+        int cur = a[0];
+        for (int i = 1; i < n; i++) {
+            if (a[i] > cur) {
+                cur = a[i];
                 cnt++;
             }
         }
@@ -25,28 +24,46 @@ void search() {
     else {
         for (int i = 1; i <= n; i++) {
             if (chosen[i]) continue;
+            a.push_back(i);
             chosen[i] = true;
-            permutation.push_back(i);
-            search();
+            search(a, n, chosen);
+            a.pop_back();
             chosen[i] = false;
-            permutation.pop_back();
         }
     }
 }
+
 int main() {
     int t;
     cin >> t;
     for (int tc = 1; tc <= t; tc++) {
-        cin >> n; 
-        for (int i = 1; i <= n; i++) {
-            chosen[i] = false;
+        long long n; 
+        double Ev;
+        cin >> n;
+        if (n <= 10) {
+            vector<int> a;
+            total = 0, A = 0;
+            bool chosen[n + 1] = {false};
+            search(a, n, chosen);
+            Ev = (double) total / A;
         }
-        permutation.clear();
-        total = 0; // cards drawn 
-        A = 0; // deck permutations 
-        search();
-        double En = (double) total / A;
-        cout << "Case #" << tc << ": " << setprecision(15) << En << endl;
+        else if (n <= 1e6) {
+            double dp[n + 1] = {};
+            for (int i = 1; i <= n; i++) {
+                dp[i] = (double) 1 / i + dp[i - 1];
+            }
+            Ev = dp[n];
+        }
+        else { // n <= 1e18
+            // thx wiki ^_^ H(n) harmonic sum approx.
+            Ev = log(n) + EULER_MASCHERONI_CONST;
+        }
+        cout << "Case #" << tc << ": " << setprecision(15) << Ev << endl;
     }
     return 0;
 }
+
+// Brute force O(n * n!), inspect output, and notice it is the harmonic sum!
+// i.e. sum 1/n, n = 1, n -> x
+// for large n we can add each term 1/n in O(n)
+// for larger n we need a O(1) solution; use Euler-Mascheroni constant
