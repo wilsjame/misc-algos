@@ -70,7 +70,6 @@ int main() {
             // N first
             if (component[i][j] != component[i-1][j]) {
                 if (sz[component[i][j]]+sz[component[i-1][j]] > mxdouble) {
-                    cerr << " mxdouble " << mxdouble << endl;
                     mxdouble = sz[component[i][j]]+sz[component[i-1][j]];
                     mxi = i;
                     mxj = j;
@@ -80,7 +79,6 @@ int main() {
             // E 
             if (component[i][j] != component[i][j+1]) {
                 if (sz[component[i][j]]+sz[component[i][j+1]] > mxdouble) {
-                    cerr << "mxdouble " << mxdouble << endl;
                     mxdouble = sz[component[i][j]]+sz[component[i][j+1]];
                     mxi = i;
                     mxj = j;
