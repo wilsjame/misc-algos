@@ -21,12 +21,10 @@ int main() {
     for(int i=1; i<=n-1; ++i){ //O(n^2) prim's (greedy)
       int I=-1, minI=INF;
       for(int j=1; j<=n; ++j){
-        if(visit[j]){
-          for(int k=1; k<=n; ++k){
-            if(!visit[k]&&adj[j][k]<minI){
-              minI=adj[j][k];
-              I=k;
-            }
+        for(int k=1; k<=n; ++k){
+          if(visit[j]&&!visit[k]&&adj[j][k]<minI){
+            minI=adj[j][k];
+            I=k;
           }
         }
       }
